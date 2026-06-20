@@ -28,16 +28,11 @@ export interface WfhEntry {
   notes: string
 }
 
-export interface PurchaseState {
-  unlocked: boolean
-  email?: string
-}
-
 const KEYS = {
   wfhLog: "taxmate-wfh-log",
-  purchase: "taxmate-purchase",
   checklistAnswers: "taxmate-checklist-answers",
   wfhRate: "taxmate-wfh-rate",
+  byokConfig: "taxmate-byok-config",
 } as const
 
 export function getWfhLog(): WfhEntry[] {
@@ -96,14 +91,6 @@ export function exportWfhCsv(): string {
   const header = "date,hours,notes"
   const rows = sorted.map((e) => `${e.date},${e.hours},"${e.notes.replace(/"/g, '""')}"`)
   return [header, ...rows].join("\n")
-}
-
-export function isUnlocked(): boolean {
-  return getStorageItem<PurchaseState>(KEYS.purchase, { unlocked: false }).unlocked
-}
-
-export function setUnlocked(email: string): void {
-  setStorageItem(KEYS.purchase, { unlocked: true, email })
 }
 
 export function getWfhRate(): number {
@@ -179,4 +166,26 @@ export function generateCsvReport(input: CsvReportInput): string {
   push(["Report prepared for tax purposes — verify with your tax agent.", ""])
 
   return rows.map((r) => r.join(",")).join("\n")
+}
+
+export interface ByokConfig {
+  baseUrl: string
+  apiKey: string
+  model: string
+}
+
+export function getByokConfig(): ByokConfig {
+  return getStorageItem<ByokConfig>(KEYS.byokConfig, {
+    baseUrl: "https://api.openai.com/v1",
+    apiKey: "",
+    model: "gpt-4o-mini",
+  })
+}
+
+export function setByokConfig(config: ByokConfig): void {
+  setStorageItem(KEYS.byokConfig, config)
+}
+
+export function clearByokConfig(): void {
+  removeStorageItem(KEYS.byokConfig)
 }

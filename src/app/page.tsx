@@ -35,7 +35,7 @@ function Hero() {
           <span className="text-taxmate-600">like a pro</span>
         </h1>
         <p className="mt-5 text-lg text-neutral-500 max-w-xl mx-auto leading-relaxed">
-          Deduction finder, WFH log, MyGov walkthrough, and audit guide — everything
+          Deduction finder, WFH log, MyGov walkthrough, AI assistant, and audit guide — everything
           a salaried Australian needs for tax time.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -111,6 +111,30 @@ function FeatureCards() {
   )
 }
 
+function AiCard() {
+  return (
+    <section className="px-6 pb-16 max-w-5xl mx-auto">
+      <Link
+        href="/ai"
+        className="block rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-7 hover:shadow-lg transition"
+      >
+        <div className="flex items-start gap-4">
+          <span className="text-3xl shrink-0">🤖</span>
+          <div>
+            <p className="font-bold text-lg text-neutral-900">AI Assistant</p>
+            <p className="mt-1 text-sm text-neutral-500 leading-relaxed">
+              Ask tax questions and get answers powered by your own LLM provider. Bring your own API key — it stays on your device.
+            </p>
+          </div>
+          <svg className="w-5 h-5 shrink-0 text-neutral-300 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </div>
+      </Link>
+    </section>
+  )
+}
+
 function Cta() {
   return (
     <section className="px-6 py-16 text-center">
@@ -151,6 +175,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <FeatureCards />
+      <AiCard />
       <Cta />
       <Footer />
     </>
